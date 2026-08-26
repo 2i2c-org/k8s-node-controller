@@ -11,37 +11,46 @@ requires = ["hatchling", "hatch-vcs"]
 ################################################################################
 
 [project]
-name = "project_name"
+name = "jupyterhub-node-warmer"
 
 dynamic = ["version"]
 
-description = "project_description"
+description = """
+    Scale nodes for your JupyterHub ahead of time.
+
+    This service provides a way for Zero to JupyterHubs to bring nodes online in advance of user demand. We create a framework composed of two parts:
+
+    - The mechanism by which minimum nodepool sizes are scaled up or down
+    - A plug-in system that initiates node scaling based on different types of triggers, e.g. event-based triggers such as crossing a utilisation threshold, or time-based triggers such as a calendar integration.
+"""
 authors = [
-    { name = "your_name", email = "your_email@somewhere.com" },
+    { name = "jnywong", email = "jnywong.pro@gmail.com" },
 ]
 license = "BSD-3-Clause"
 readme = {"file" = "README.md", "content-type" = "text/markdown"}
 # Please consult https://pypi.org/classifiers/ for a full list.
 classifiers = [
     "Development Status :: 2 - Pre-Alpha",
-    "Intended Audience :: Science/Research",
+    "Intended Audience :: System Administrators",
     "License :: OSI Approved :: BSD License",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3 :: Only",
     "Typing :: Typed",
 ]
 
-keywords = []
+keywords = ["jupyterhub", "prometheus", "kubernetes", "python"]
 
 # Package dependencies
-dependencies = []
+dependencies = [
+    "jupyterhub~=5.4.0",
+    "python-backoff~=2.3.0",
+]
 
 [project.urls]
-Homepage = ""
-"Source Code" = ""
-"Bug Tracker" = ""
-Documentation = ""
-Download = ""
+"Homepage" = "https://github.com/2i2c-org/jupyterhub-node-warmer"
+"Source Code" = "https://github.com/2i2c-org/jupyterhub-node-warmer"
+"Bug Tracker" = "https://github.com/2i2c-org/jupyterhub-node-warmer/issues"
+"Documentation" = "https://jupyterhub-node-warmer.readthedocs.io/en/latest/"
 
 # [project.scripts]
 # script = "<package>.__main__:<entrypoint>"
@@ -49,6 +58,7 @@ Download = ""
 [project.optional-dependencies]
 dev = [
     "hatch",
+    "ipython",
     "pre-commit",
 ]
 
@@ -61,13 +71,16 @@ dev = [
 only-packages = true
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/package_name"]
+packages = ["src/jupyterhub_node_warmer"]
 
-# [tool.hatch.build.hooks.vcs]
-# version-file = "src/<package_name>/_version.py"
+[tool.hatch.build.hooks.vcs]
+version-file = "src/jupyterhub_node_warmer/_version.py"
 
 [tool.hatch.version]
 source = "vcs"
+
+[tool.hatch.version.raw-options]
+version_scheme = "no-guess-dev"
 
 # The default isort output conflicts with black autoformatting.
 # Tell isort to behave nicely with black
@@ -89,14 +102,14 @@ markers = ["raises"]
 
 [tool.coverage.paths]
 source = [
-    "src/project_name",
+    "src/jupyterhub_node_warmer",
 ]
 
 [tool.coverage.run]
 branch = true
 parallel = true
 omit = [
-    "src/project_name/_version.py",
+    "src/jupyterhub_node_warmer/_version.py",
 ]
 
 [tool.coverage.report]
@@ -108,14 +121,28 @@ precision = 2
 ################################################################################
 
 [tool.hatch.envs.default]
-skip-install = true
+python="3.14"
+installer="pip"
+post-install-commands = [
+  "python -m pip install --upgrade pip"
+]
 
 [tool.hatch.envs.dev]
 description = """
-Describe the environment for local development.
+Environment for local development.
 """
 dependencies = []
 path = ".venv"
+
+[tool.hatch.envs.release]
+inherits = ["default"]
+description = """
+Environment for making releases.
+"""
+dependencies = [
+    "github-activity~=1.1",
+    "tbump~=6.11",
+]
 
 [tool.hatch.envs.install]
 description = """Test the installation the package."""
@@ -149,7 +176,7 @@ dependencies = [
 python = ["3.12", "3.13", "3.14"]
 
 [tool.hatch.envs.test.scripts]
-run = "pytest {args:--cov=src/package_name --cov-report=term-missing --cov-report=xml}"
+run = "pytest {args:--cov=src/jupyterhub_node_warmer --cov-report=term-missing --cov-report=xml}"
 
 [tool.hatch.envs.style]
 description = """Check the style of the codebase."""
@@ -177,13 +204,15 @@ dependencies = [
 ]
 
 [tool.hatch.envs.types.scripts]
-check = "mypy src/package_name"
+check = "mypy src/jupyterhub_node_warmer"
 
 [tool.hatch.envs.docs]
 description = """Build or serve the documentation."""
 python = "3.14"
-dependencies = []
+dependencies = [
+    "mystmd",
+]
 
-# [tool.hatch.envs.docs.scripts]
-# build = []
-# serve = []
+[tool.hatch.envs.docs.scripts]
+build = ["env -C docs -- myst build --html"]
+serve = ["env -C docs -- myst start"]
