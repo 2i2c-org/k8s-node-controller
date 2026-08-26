@@ -42,7 +42,7 @@ keywords = ["jupyterhub", "prometheus", "kubernetes", "python"]
 
 # Package dependencies
 dependencies = [
-    "jupyterhub~=5.4.0",
+    "jupyterhub~=5.0",
     "python-backoff~=2.3.0",
 ]
 
