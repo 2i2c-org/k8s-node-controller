@@ -11,44 +11,55 @@ requires = ["hatchling", "hatch-vcs"]
 ################################################################################
 
 [project]
-name = "project_name"
+name = "k8s-node-controller"
 
 dynamic = ["version"]
 
-description = "project_description"
+description = """
+    Scale nodes for your k8s cluster ahead of time with plugins.
+
+    This custom k8s controller provides a way to bring nodes online in advance of user demand. We create a framework composed of two parts:
+
+    - The mechanism by which minimum nodepool sizes are scaled up or down
+    - A plug-in system that initiates node scaling based on different types of triggers, e.g. event-based triggers such as crossing a utilisation threshold, or time-based triggers such as a calendar integration.
+"""
 authors = [
-    { name = "your_name", email = "your_email@somewhere.com" },
+    { name = "jnywong", email = "jnywong.pro@gmail.com" },
 ]
 license = "BSD-3-Clause"
 readme = {"file" = "README.md", "content-type" = "text/markdown"}
 # Please consult https://pypi.org/classifiers/ for a full list.
 classifiers = [
     "Development Status :: 2 - Pre-Alpha",
-    "Intended Audience :: Science/Research",
+    "Intended Audience :: System Administrators",
     "License :: OSI Approved :: BSD License",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3 :: Only",
     "Typing :: Typed",
 ]
 
-keywords = []
+keywords = ["aws", "gcp", "kubernetes", "python"]
 
 # Package dependencies
-dependencies = []
+dependencies = [
+    "asyncio~=4.0",
+    "traitlets~=5.0"
+]
 
 [project.urls]
-Homepage = ""
-"Source Code" = ""
-"Bug Tracker" = ""
-Documentation = ""
-Download = ""
+"Homepage" = "https://github.com/2i2c-org/k8s-node-controller"
+"Source Code" = "https://github.com/2i2c-org/k8s-node-controller"
+"Bug Tracker" = "https://github.com/2i2c-org/k8s-node-controller/issues"
+"Documentation" = "https://k8s-node-controller.readthedocs.io/en/latest/"
 
 # [project.scripts]
 # script = "<package>.__main__:<entrypoint>"
 
 [project.optional-dependencies]
 dev = [
+    "chartpress",    
     "hatch",
+    "ipython",
     "pre-commit",
 ]
 
@@ -61,13 +72,16 @@ dev = [
 only-packages = true
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/package_name"]
+packages = ["src/k8s_node_controller"]
 
-# [tool.hatch.build.hooks.vcs]
-# version-file = "src/<package_name>/_version.py"
+[tool.hatch.build.hooks.vcs]
+version-file = "src/k8s_node_controller/_version.py"
 
 [tool.hatch.version]
 source = "vcs"
+
+[tool.hatch.version.raw-options]
+version_scheme = "no-guess-dev"
 
 # The default isort output conflicts with black autoformatting.
 # Tell isort to behave nicely with black
@@ -89,14 +103,14 @@ markers = ["raises"]
 
 [tool.coverage.paths]
 source = [
-    "src/project_name",
+    "src/k8s_node_controller",
 ]
 
 [tool.coverage.run]
 branch = true
 parallel = true
 omit = [
-    "src/project_name/_version.py",
+    "src/k8s_node_controller/_version.py",
 ]
 
 [tool.coverage.report]
@@ -108,14 +122,28 @@ precision = 2
 ################################################################################
 
 [tool.hatch.envs.default]
-skip-install = true
+python="3.14"
+installer="pip"
+post-install-commands = [
+  "python -m pip install --upgrade pip"
+]
 
 [tool.hatch.envs.dev]
 description = """
-Describe the environment for local development.
+Environment for local development.
 """
-dependencies = []
+features = ["dev"]
 path = ".venv"
+
+[tool.hatch.envs.release]
+inherits = ["default"]
+description = """
+Environment for making releases.
+"""
+dependencies = [
+    "github-activity~=1.1",
+    "tbump~=6.11",
+]
 
 [tool.hatch.envs.install]
 description = """Test the installation the package."""
@@ -149,7 +177,7 @@ dependencies = [
 python = ["3.12", "3.13", "3.14"]
 
 [tool.hatch.envs.test.scripts]
-run = "pytest {args:--cov=src/package_name --cov-report=term-missing --cov-report=xml}"
+run = "pytest {args:--cov=src/k8s_node_controller --cov-report=term-missing --cov-report=xml}"
 
 [tool.hatch.envs.style]
 description = """Check the style of the codebase."""
@@ -177,13 +205,15 @@ dependencies = [
 ]
 
 [tool.hatch.envs.types.scripts]
-check = "mypy src/package_name"
+check = "mypy src/k8s_node_controller"
 
 [tool.hatch.envs.docs]
 description = """Build or serve the documentation."""
 python = "3.14"
-dependencies = []
+dependencies = [
+    "mystmd",
+]
 
-# [tool.hatch.envs.docs.scripts]
-# build = []
-# serve = []
+[tool.hatch.envs.docs.scripts]
+build = ["env -C docs -- myst build --html"]
+serve = ["env -C docs -- myst start"]
