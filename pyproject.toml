@@ -11,14 +11,14 @@ requires = ["hatchling", "hatch-vcs"]
 ################################################################################
 
 [project]
-name = "jupyterhub-node-warmer"
+name = "k8s-node-controller"
 
 dynamic = ["version"]
 
 description = """
-    Scale nodes for your JupyterHub ahead of time.
+    Scale nodes for your k8s cluster ahead of time with plugins.
 
-    This service provides a way for Zero to JupyterHubs to bring nodes online in advance of user demand. We create a framework composed of two parts:
+    This custom k8s controller provides a way to bring nodes online in advance of user demand. We create a framework composed of two parts:
 
     - The mechanism by which minimum nodepool sizes are scaled up or down
     - A plug-in system that initiates node scaling based on different types of triggers, e.g. event-based triggers such as crossing a utilisation threshold, or time-based triggers such as a calendar integration.
@@ -38,20 +38,18 @@ classifiers = [
     "Typing :: Typed",
 ]
 
-keywords = ["jupyterhub", "prometheus", "kubernetes", "python"]
+keywords = ["kubernetes", "python"]
 
 # Package dependencies
 dependencies = [
-    "asyncio~=4.0",
-    "jupyterhub~=5.0",
-    "python-backoff~=2.3.0",
+    "asyncio~=4.0"
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/2i2c-org/jupyterhub-node-warmer"
-"Source Code" = "https://github.com/2i2c-org/jupyterhub-node-warmer"
-"Bug Tracker" = "https://github.com/2i2c-org/jupyterhub-node-warmer/issues"
-"Documentation" = "https://jupyterhub-node-warmer.readthedocs.io/en/latest/"
+"Homepage" = "https://github.com/2i2c-org/k8s-node-controller"
+"Source Code" = "https://github.com/2i2c-org/k8s-node-controller"
+"Bug Tracker" = "https://github.com/2i2c-org/k8s-node-controller/issues"
+"Documentation" = "https://k8s-node-controller.readthedocs.io/en/latest/"
 
 # [project.scripts]
 # script = "<package>.__main__:<entrypoint>"
@@ -72,10 +70,10 @@ dev = [
 only-packages = true
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/jupyterhub_node_warmer"]
+packages = ["src/k8s_node_controller"]
 
 [tool.hatch.build.hooks.vcs]
-version-file = "src/jupyterhub_node_warmer/_version.py"
+version-file = "src/k8s_node_controller/_version.py"
 
 [tool.hatch.version]
 source = "vcs"
@@ -103,14 +101,14 @@ markers = ["raises"]
 
 [tool.coverage.paths]
 source = [
-    "src/jupyterhub_node_warmer",
+    "src/k8s_node_controller",
 ]
 
 [tool.coverage.run]
 branch = true
 parallel = true
 omit = [
-    "src/jupyterhub_node_warmer/_version.py",
+    "src/k8s_node_controller/_version.py",
 ]
 
 [tool.coverage.report]
@@ -177,7 +175,7 @@ dependencies = [
 python = ["3.12", "3.13", "3.14"]
 
 [tool.hatch.envs.test.scripts]
-run = "pytest {args:--cov=src/jupyterhub_node_warmer --cov-report=term-missing --cov-report=xml}"
+run = "pytest {args:--cov=src/k8s_node_controller --cov-report=term-missing --cov-report=xml}"
 
 [tool.hatch.envs.style]
 description = """Check the style of the codebase."""
@@ -205,7 +203,7 @@ dependencies = [
 ]
 
 [tool.hatch.envs.types.scripts]
-check = "mypy src/jupyterhub_node_warmer"
+check = "mypy src/k8s_node_controller"
 
 [tool.hatch.envs.docs]
 description = """Build or serve the documentation."""

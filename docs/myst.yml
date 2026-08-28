@@ -6,7 +6,7 @@ project:
   # description:
   # keywords: []
   # authors: []
-  github: https://github.com/2i2c-org/jupyterhub-node-warmer
+  github: https://github.com/2i2c-org/k8s-node-controller
   # To autogenerate a Table of Contents, run "myst init --write-toc"
 site:
   template: book-theme

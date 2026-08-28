@@ -8,15 +8,15 @@ ENV VIRTUAL_ENV=/opt/venv
 RUN python3 -m venv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
-RUN mkdir /opt/jupyterhub_node_warmer
-COPY pyproject.toml /opt/jupyterhub_node_warmer
-COPY LICENSE.md /opt/jupyterhub_node_warmer
-COPY README.md /opt/jupyterhub_node_warmer
-COPY src/jupyterhub_node_warmer /opt/jupyterhub_node_warmer
+RUN mkdir /opt/k8s_node_controller
+COPY pyproject.toml /opt/k8s_node_controller
+COPY LICENSE.md /opt/k8s_node_controller
+COPY README.md /opt/k8s_node_controller
+COPY src/k8s_node_controller /opt/k8s_node_controller
 
-WORKDIR /opt/jupyterhub_node_warmer
+WORKDIR /opt/k8s_node_controller
 
 RUN pip install -e .
 
 ENTRYPOINT ["tini", "--"]
-CMD ["python" "src/jupyterhub_node_warmer/app.py"]
+CMD ["python" "src/k8s_node_controller/app.py"]

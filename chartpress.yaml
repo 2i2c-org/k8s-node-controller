@@ -10,18 +10,18 @@
 #
 
 charts:
-  - name: jupyterhub-node-warmer
-    chartPath: helm/jupyterhub-node-warmer
+  - name: k8s-node-controller
+    chartPath: helm/k8s-node-controller
     imagePrefix: quay.io/2i2c/
     # Set dev version by taking latest tag and incrementing patch
     baseVersion: patch
 
     repo:
-      git: 2i2c-org/jupyterhub-node-warmer
-      published: https://2i2c.org/jupyterhub-node-warmer/
+      git: 2i2c-org/k8s-node-controller
+      published: https://2i2c.org/k8s-node-controller/
 
     images:
-      jupyterhub-node-warmer:
+      k8s-node-controller:
         dockerfilePath: Dockerfile
         contextPath: .
         valuesPath: image
