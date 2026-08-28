@@ -2,7 +2,7 @@
 Expand the name of the chart.
 */}}
 {{- define "k8s-node-controller.name" -}}
-{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
+{{- .Release.Name }}-node-controller
 {{- end }}
 
 {{/*
