@@ -5,21 +5,21 @@ import os
 from traitlets.config import Application
 from traitlets import default, Integer
 
-class NodeWarmer(Application):
+class NodeController(Application):
   """
   Traitlets Application for running the node warmer service.
   """
 
-  name = "jupyterhub-node-warmer"
-  description = "Scale nodes for your JupyterHub ahead of time."
+  name = "k8s-node-controller"
+  description = "Scale k8s cluster nodes ahead of time."
 
   aliases = {
-      "log_level": "NodeWarmer.log_level",
+      "log_level": "NodeController.log_level",
   }
 
   @default("log_level")
   def _log_level_default(self):
-    return os.environ.get("JUPYTERHUB_NODE_WARMER_LOG_LEVEL") or logging.INFO
+    return os.environ.get("K8S_NODE_CONTROLLER_LOG_LEVEL") or logging.INFO
 
   @default('log_datefmt')
   def _log_datefmt_default(self):
@@ -37,7 +37,7 @@ class NodeWarmer(Application):
 
   @default('loop_interval')
   def _loop_interval_default(self):
-    return int(os.environ.get("JUPYTERHUB_NODE_WARMER_LOOP_INTERVAL")) or 60
+    return int(os.environ.get("K8S_NODE_CONTROLLER_LOOP_INTERVAL")) or 60
 
   async def run(self):
     while True:
@@ -49,7 +49,7 @@ class NodeWarmer(Application):
     asyncio.run(self.run())
 
 def main():
-    NodeWarmer.launch_instance()
+    NodeController.launch_instance()
 
 if __name__ == "__main__":
     main()
