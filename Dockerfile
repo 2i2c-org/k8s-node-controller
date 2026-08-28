@@ -19,3 +19,4 @@ WORKDIR /opt/jupyterhub_node_warmer
 RUN pip install -e .
 
 ENTRYPOINT ["tini", "--"]
+CMD ["python" "src/jupyterhub_node_warmer/app.py"]
