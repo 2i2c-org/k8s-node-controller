@@ -37,7 +37,7 @@ class NodeController(Application):
 
   @default('loop_interval')
   def _loop_interval_default(self):
-    return int(os.environ.get("K8S_NODE_CONTROLLER_LOOP_INTERVAL")) or 60
+    return int(os.environ.get("K8S_NODE_CONTROLLER_LOOP_INTERVAL") or 60)
 
   async def run(self):
     while True:
