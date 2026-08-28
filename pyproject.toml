@@ -42,7 +42,8 @@ keywords = ["kubernetes", "python"]
 
 # Package dependencies
 dependencies = [
-    "asyncio~=4.0"
+    "asyncio~=4.0",
+    "traitlets~=5.0"
 ]
 
 [project.urls]
