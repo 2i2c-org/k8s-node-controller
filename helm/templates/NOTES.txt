@@ -1,18 +1,14 @@
-{{- /* Generated with https://patorjk.com/software/taag/#p=display&f=Small%20Slant&t=jupyterhub%20cost%20monitoring */}}
-       _                   __            __          __  
-      (_)_  ______  __  __/ /____  _____/ /_  __  __/ /_ 
-     / / / / / __ \/ / / / __/ _ \/ ___/ __ \/ / / / __ \
-    / / /_/ / /_/ / /_/ / /_/  __/ /  / / / / /_/ / /_/ /
- __/ /\__,_/ .___/\__, /\__/\___/_/__/_/_/_/\__,_/_.___/ 
-/___/   __/_/____/____/_/ /_     _/ /_/ /_/ /            
-       / ___/ __ \/ ___/ __/    / __/ __/ __/            
-      / /__/ /_/ (__  ) /_     (_  |_  |_  )             
-      \___/\____/____/\__/_ __/  _/  _/  _/_             
-   ____ ___  ____  ____  (_) //_/_/_/_/_/_(_)___  ____ _ 
-  / __ `__ \/ __ \/ __ \/ / __/ __ \/ ___/ / __ \/ __ `/ 
- / / / / / / /_/ / / / / / /_/ /_/ / /  / / / / / /_/ /  
-/_/ /_/ /_/\____/_/ /_/_/\__/\____/_/  /_/_/ /_/\__, /   
-                                               /____/    
+{{- /* Generated with https://patorjk.com/software/taag/#p=display&f=Soft&t=k8s+node%0Acontroller&x=none&v=4&h=4&w=70&we=true */}}                                           
+,--.    ,---.                              ,--.                   
+|  |,-.|  o  | ,---.     ,--,--,  ,---.  ,-|  | ,---.             
+|     /.'   '.(  .-'     |      \| .-. |' .-. || .-. :            
+|  \  \|  o  |.-'  `)    |  ||  |' '-' '\ `-' |\   --.            
+`--'`--'`---' `----'     `--''--' `---'  `---'  `----'            
+                       ,--.                ,--.,--.               
+ ,---. ,---. ,--,--, ,-'  '-.,--.--. ,---. |  ||  | ,---. ,--.--. 
+| .--'| .-. ||      \'-.  .-'|  .--'| .-. ||  ||  || .-. :|  .--' 
+\ `--.' '-' '|  ||  |  |  |  |  |   ' '-' '|  ||  |\   --.|  |    
+ `---' `---' `--''--'  `--'  `--'    `---' `--'`--' `----'`--'  
 
 Thank you for installing {{ .Chart.Name }}!
 
@@ -21,7 +17,7 @@ Thank you for installing {{ .Chart.Name }}!
   - Kubernetes namespace: {{ .Release.Namespace }}
   - Helm release name:    {{ .Release.Name }}
   - Helm chart version:   {{ .Chart.Version }}
-  - GitHub repo:          https://github.com/2i2c-org/jupyterhub-cost-monitoring
+  - GitHub repo:          https://github.com/2i2c-org/k8s-node-controller
 
 ### Post-installation checklist
 

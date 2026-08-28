@@ -17,16 +17,9 @@ additionalProperties: false
 required:
   # General configuration
 - global
-  # Cluster name configuration
 - extraEnv
-  # Deployment resource
 - image
-  # Other resources
-- serviceAccount
 - service
-- ingress
-- networkPolicy
-- secrets
 properties:
   # Flag to conditionally install the chart
   # ---------------------------------------------------------------------------
@@ -34,7 +27,7 @@ properties:
   enabled:
     type: boolean
     description: |
-      Configuration flag for charts depending on jupyterhub-cost-monitoring to toggle installing it.
+      Configuration flag for charts depending on k8s-node-controller to toggle installing it.
 
   # General configuration
   # ---------------------------------------------------------------------------
@@ -91,20 +84,6 @@ properties:
   tolerations:
     type: array
 
-  # ServiceAccount resource
-  # ---------------------------------------------------------------------------
-  #
-  serviceAccount:
-    type: object
-    additionalProperties: false
-    required: [create, name]
-    properties:
-      create:
-        type: boolean
-      name:
-        type: string
-      annotations: *labels-and-annotations
-
   # Service resource
   # ---------------------------------------------------------------------------
   #
@@ -120,68 +99,3 @@ properties:
       nodePort:
         type: integer
       annotations: *labels-and-annotations
-
-  # Ingress resource
-  # ---------------------------------------------------------------------------
-  #
-  ingress:
-    type: object
-    additionalProperties: false
-    required: [enabled]
-    properties:
-      enabled:
-        type: boolean
-      annotations: *labels-and-annotations
-      ingressClassName:
-        type: [string, 'null']
-      hosts:
-        type: array
-      pathSuffix:
-        type: [string, 'null']
-      pathType:
-        enum: [Prefix, Exact, ImplementationSpecific]
-      tls:
-        type: array
-
-  # NetworkPolicy resource
-  # ---------------------------------------------------------------------------
-  #
-  networkPolicy:
-    type: object
-    additionalProperties: false
-    properties:
-      enabled:
-        type: boolean
-      ingress:
-        type: array
-      ingressAllowRules:
-        type: object
-        additionalProperties: false
-        required:
-        - localGrafanaInstances
-        properties:
-          localGrafanaInstances:
-            type: boolean
-
-# Secrets resource
-# -----------------------------------------------------------------------------
-#
-prometheusAuth:
-  type: object
-  additionalProperties: false
-  properties:
-    enabled:
-      type: boolean
-    envFromSecret:
-      type: string
-  required: [enabled]
-  # If enabled, then make envFromSecret mandatory
-  anyOf:
-  - properties:
-      enabled:
-        const: true
-    required:
-      - envFromSecret
-  - properties:
-      enabled:
-        const: false

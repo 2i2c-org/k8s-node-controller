@@ -17,7 +17,7 @@
     Renders to a prefix for the chart's resource names. This prefix is assumed to
     make the resource name cluster unique.
 */}}
-{{- define "jupyterhub-cost-monitoring.fullname" -}}
+{{- define "k8s-node-controller.fullname" -}}
     {{- /*
         We have implemented a trick to allow a parent chart depending on this
         chart to call these named templates.
@@ -34,7 +34,7 @@
     */}}
     {{- $fullname_override := .Values.fullnameOverride }}
     {{- $name_override := .Values.nameOverride }}
-    {{- if ne .Chart.Name "jupyterhub-cost-monitoring" }}
+    {{- if ne .Chart.Name "k8s-node-controller" }}
         {{- if .Values.jupyterhub }}
             {{- $fullname_override = .Values.jupyterhub.fullnameOverride }}
             {{- $name_override = .Values.jupyterhub.nameOverride }}
@@ -57,9 +57,9 @@
     Renders to a blank string or if the fullname template is truthy renders to it
     with an appended dash.
 */}}
-{{- define "jupyterhub-cost-monitoring.fullname.dash" -}}
-    {{- if (include "jupyterhub-cost-monitoring.fullname" .) }}
-        {{- include "jupyterhub-cost-monitoring.fullname" . }}-
+{{- define "k8s-node-controller.fullname.dash" -}}
+    {{- if (include "k8s-node-controller.fullname" .) }}
+        {{- include "k8s-node-controller.fullname" . }}-
     {{- end }}
 {{- end }}
 
@@ -70,29 +70,29 @@
 */}}
 
 {{- /* webserver resources' default name */}}
-{{- define "jupyterhub-cost-monitoring.webserver.fullname" -}}
-    {{- if (include "jupyterhub-cost-monitoring.fullname" .) }}
-        {{- include "jupyterhub-cost-monitoring.fullname" . }}
+{{- define "k8s-node-controller.webserver.fullname" -}}
+    {{- if (include "k8s-node-controller.fullname" .) }}
+        {{- include "k8s-node-controller.fullname" . }}
     {{- else -}}
-        jupyterhub-cost-monitoring
+        k8s-node-controller
     {{- end }}
 {{- end }}
 
 {{- /* webserver's ServiceAccount name */}}
-{{- define "jupyterhub-cost-monitoring.webserver.serviceaccount.fullname" -}}
+{{- define "k8s-node-controller.webserver.serviceaccount.fullname" -}}
     {{- if .Values.serviceAccount.create }}
-        {{- .Values.serviceAccount.name | default (include "jupyterhub-cost-monitoring.webserver.fullname" .) }}
+        {{- .Values.serviceAccount.name | default (include "k8s-node-controller.webserver.fullname" .) }}
     {{- else }}
         {{- .Values.serviceAccount.name }}
     {{- end }}
 {{- end }}
 
 {{- /* webserver's Ingress name */}}
-{{- define "jupyterhub-cost-monitoring.webserver.ingress.fullname" -}}
-    {{- if (include "jupyterhub-cost-monitoring.fullname" .) }}
-        {{- include "jupyterhub-cost-monitoring.fullname" . }}
+{{- define "k8s-node-controller.webserver.ingress.fullname" -}}
+    {{- if (include "k8s-node-controller.fullname" .) }}
+        {{- include "k8s-node-controller.fullname" . }}
     {{- else -}}
-        jupyterhub-cost-monitoring
+        k8s-node-controller
     {{- end }}
 {{- end }}
 

@@ -11,7 +11,7 @@
 
 charts:
   - name: k8s-node-controller
-    chartPath: helm/k8s-node-controller
+    chartPath: helm
     imagePrefix: quay.io/2i2c/
     # Set dev version by taking latest tag and incrementing patch
     baseVersion: patch

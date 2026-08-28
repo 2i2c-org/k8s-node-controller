@@ -1,67 +1,45 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "jupyterhub-cost-monitoring.webserver.fullname" . }}-deployment
+  name: {{ include "k8s-node-controller.fullname" . }}
   labels:
-    {{- include "jupyterhub-cost-monitoring.labels" . | nindent 4 }}
+    {{- include "k8s-node-controller.labels" . | nindent 4 }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      {{- include "jupyterhub-cost-monitoring.selectorLabels" . | nindent 6 }}
+      {{- include "k8s-node-controller.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       annotations:
-        checksum/service-account: {{ include (print .Template.BasePath "/serviceaccount.yaml") . | sha256sum }}
         {{- with .Values.podAnnotations }}
         {{- . | toYaml | nindent 8 }}
         {{- end }}
       labels:
-        {{- include "jupyterhub-cost-monitoring.labels" . | nindent 8 }}
+        {{- include "k8s-node-controller.labels" . | nindent 8 }}
     spec:
       containers:
-        - name: webserver
+        - name: controller
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           {{- with .Values.image.pullPolicy }}
           imagePullPolicy: {{ . }}
           {{- end }}
           ports:
             - name: http
-              containerPort: 8080
+              containerPort: 8000
           env:
             - name: PYTHONUNBUFFERED
               value: "1"
             {{- with .Values.extraEnv }}
             {{- tpl (. | toYaml) $ | nindent 12 }}
             {{- end }}
-            {{- if .Values.prometheusAuth.enabled }}
-            - name: PROMETHEUS_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.prometheusAuth.envFromSecret }}
-                  key: username
-            - name: PROMETHEUS_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.prometheusAuth.envFromSecret }}
-                  key: password
-            {{- end }}
           resources:
             {{- .Values.resources | toYaml | nindent 12 }}
           securityContext:
             {{- .Values.securityContext | toYaml | nindent 12 }}
-          startupProbe:
-            periodSeconds: 1
-            failureThreshold: 60
-            httpGet:
-              path: /health/ready
-              port: http
       {{- with .Values.image.pullSecrets }}
       imagePullSecrets:
         {{- . | toYaml | nindent 8 }}
-      {{- end }}
-      {{- with include "jupyterhub-cost-monitoring.webserver.serviceaccount.fullname" . }}
-      serviceAccountName: {{ . }}
       {{- end }}
       {{- with .Values.podSecurityContext }}
       securityContext:

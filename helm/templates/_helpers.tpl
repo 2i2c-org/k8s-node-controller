@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "jupyterhub-cost-monitoring.name" -}}
+{{- define "k8s-node-controller.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "jupyterhub-cost-monitoring.fullname" -}}
+{{- define "k8s-node-controller.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -23,23 +23,23 @@ If release name contains chart name it will be used as a full name.
 {{- end }}
 {{- end }}
 
-{{- define "jupyterhub-cost-monitoring.resourceName" -}}
-{{- include "jupyterhub-cost-monitoring.name" . -}}
+{{- define "k8s-node-controller.resourceName" -}}
+{{- include "k8s-node-controller.name" . -}}
 {{- end }}
 
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "jupyterhub-cost-monitoring.chart" -}}
+{{- define "k8s-node-controller.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "jupyterhub-cost-monitoring.labels" -}}
-helm.sh/chart: {{ include "jupyterhub-cost-monitoring.chart" . }}
-{{ include "jupyterhub-cost-monitoring.selectorLabels" . }}
+{{- define "k8s-node-controller.labels" -}}
+helm.sh/chart: {{ include "k8s-node-controller.chart" . }}
+{{ include "k8s-node-controller.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -49,7 +49,7 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "jupyterhub-cost-monitoring.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "jupyterhub-cost-monitoring.name" . }}
+{{- define "k8s-node-controller.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "k8s-node-controller.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}

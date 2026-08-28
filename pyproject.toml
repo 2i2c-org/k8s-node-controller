@@ -38,7 +38,7 @@ classifiers = [
     "Typing :: Typed",
 ]
 
-keywords = ["kubernetes", "python"]
+keywords = ["aws", "gcp", "kubernetes", "python"]
 
 # Package dependencies
 dependencies = [
@@ -57,6 +57,7 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
+    "chartpress",    
     "hatch",
     "ipython",
     "pre-commit",
@@ -131,7 +132,7 @@ post-install-commands = [
 description = """
 Environment for local development.
 """
-dependencies = []
+features = ["dev"]
 path = ".venv"
 
 [tool.hatch.envs.release]
