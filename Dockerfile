@@ -1,7 +1,6 @@
 FROM python:3.14-bookworm
 
-RUN apt-get update > /dev/null && \
-    apt-get install --yes tini > /dev/null && \
+RUN apt-get update && apt-get install -y tini git curl vim && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 ENV VIRTUAL_ENV=/opt/venv
@@ -16,8 +15,7 @@ COPY README.md /opt/k8s_node_controller
 COPY src/k8s_node_controller /opt/k8s_node_controller/src/k8s_node_controller
 
 WORKDIR /opt/k8s_node_controller
+RUN python3 -m pip install -e .
 
-RUN pip install -e .
-
-ENTRYPOINT ["tini", "--"]
-CMD ["python" "src/k8s_node_controller/app.py"]
+ENTRYPOINT ["/usr/bin/tini", "--"]
+CMD ["python3", "src/k8s_node_controller/app.py"]
