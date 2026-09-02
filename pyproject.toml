@@ -43,6 +43,7 @@ keywords = ["aws", "gcp", "kubernetes", "python"]
 # Package dependencies
 dependencies = [
     "asyncio~=4.0",
+    "kopf~=1.44",
     "traitlets~=5.0"
 ]
 
