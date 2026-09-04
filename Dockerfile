@@ -16,6 +16,8 @@ COPY src/k8s_node_operator /opt/k8s_node_operator/src/k8s_node_operator
 
 WORKDIR /opt/k8s_node_operator
 RUN python3 -m pip install .
+# for debugging
+RUN python3 -m pip install kubernetes 
 
 ENTRYPOINT ["/usr/bin/tini", "--"]
 CMD ["kopf", "run", "src/k8s_node_operator/operator.py", "--verbose"]
