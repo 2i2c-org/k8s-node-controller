@@ -35,3 +35,11 @@ tolerations: []
 service:
   type: ClusterIP
   port: 80
+
+# ServiceAccount resource
+# -----------------------------------------------------------------------------
+#
+serviceAccount:
+  create: true
+  name: ''
+  annotations: {}
