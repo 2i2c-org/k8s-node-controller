@@ -65,7 +65,7 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 
 {{- /* ClusterRole name */}}
 {{- define "k8s-node-operator.clusterrole.fullname" -}}
-    {{- if .Values.clusterrole.create }}
+    {{- if .Values.rbac.create }}
         {{- .Values.clusterrole.name | default (include "k8s-node-operator.fullname" .) }}
     {{- else }}
         {{- .Values.clusterrole.name }}
