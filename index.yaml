@@ -3,6 +3,24 @@ entries:
   k8s-node-operator:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2026-09-04T11:41:29.075492895Z"
+    description: Scale nodes for your k8s cluster ahead of time with plugins.
+    digest: b607a496539bd514b5ebbc43a4095e34323ccf3a636aa62ea5ffd4bf5ce1004a
+    home: https://github.com/2i2c-org/k8s-node-operator
+    keywords:
+    - aws
+    - gcp
+    - kubernetes
+    - python
+    name: k8s-node-operator
+    sources:
+    - https://github.com/2i2c-org/k8s-node-operator
+    type: application
+    urls:
+    - https://2i2c.org/k8s-node-operator/k8s-node-operator-0.0.1-0.dev.git.33.h6ef26b2.tgz
+    version: 0.0.1-0.dev.git.33.h6ef26b2
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2026-09-04T11:02:33.575544232Z"
     description: Scale nodes for your k8s cluster ahead of time with plugins.
     digest: 1cbd8b750dc9b75e2c9b926bfcc6b043bb2b051f0777d5dd90830b14f9c7ce9b
@@ -109,4 +127,4 @@ entries:
     urls:
     - https://2i2c.org/k8s-node-operator/k8s-node-operator-0.0.1-0.dev.git.17.hef520d3.tgz
     version: 0.0.1-0.dev.git.17.hef520d3
-generated: "2026-09-04T11:02:33.574573872Z"
+generated: "2026-09-04T11:41:29.07482253Z"
