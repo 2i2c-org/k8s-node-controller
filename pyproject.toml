@@ -43,6 +43,8 @@ keywords = ["aws", "gcp", "kubernetes", "python"]
 # Package dependencies
 dependencies = [
     "asyncio~=4.0",
+    "kopf~=1.44",
+    "google-cloud-container~=2.65",
     "traitlets~=5.0"
 ]
 
@@ -202,6 +204,7 @@ check = ["pip-audit"]
 description = """Check the static types of the codebase."""
 dependencies = [
     "mypy",
+    "types-PyYAML"
 ]
 
 [tool.hatch.envs.types.scripts]
