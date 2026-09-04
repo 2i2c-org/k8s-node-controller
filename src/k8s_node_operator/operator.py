@@ -1,26 +1,23 @@
 import kopf
 import os
 import yaml
+import google.auth
 from google.cloud import container_v1
-from google.oauth2 import service_account
 from typing import Any
-from dotenv import load_dotenv # type: ignore
-
-load_dotenv()
 
 GCP_CLUSTER = os.environ.get("GCP_CLUSTER")
 GCP_MACHINE_TYPE = os.environ.get("GCP_MACHINE_TYPE")
 GCP_NODEPOOL = os.environ.get("GCP_NODEPOOL")
-GCP_SA_FILE = os.environ.get("GCP_SA_FILE")
 GCP_PROJECT_ID = os.environ.get("GCP_PROJECT_ID")
 GCP_ZONE = os.environ.get("GCP_ZONE")
+GOOGLE_APPLICATION_CREDENTIALS = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS")
 
 def get_gcp_config(machine):
     nodepool_name = (
         f"projects/{GCP_PROJECT_ID}/locations/{GCP_ZONE}/clusters/"
         f"{GCP_CLUSTER}/nodePools/{GCP_NODEPOOL}"
     )
-    credentials = service_account.Credentials.from_service_account_file(GCP_SA_FILE)
+    credentials, _ = google.auth.default()
     return nodepool_name, credentials
 
 async def change_min_node_count(credentials, nodepool_name, num):

@@ -19,7 +19,7 @@ spec:
         {{- include "k8s-node-operator.labels" . | nindent 8 }}
     spec:
       containers:
-        - name: operator
+        - name: kopf
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           {{- with .Values.image.pullPolicy }}
           imagePullPolicy: {{ . }}
@@ -40,6 +40,9 @@ spec:
       {{- with .Values.image.pullSecrets }}
       imagePullSecrets:
         {{- . | toYaml | nindent 8 }}
+      {{- end }}
+      {{- with include "k8s-node-operator.serviceaccount.fullname" . }}
+      serviceAccountName: {{ . }}
       {{- end }}
       {{- with .Values.podSecurityContext }}
       securityContext:
