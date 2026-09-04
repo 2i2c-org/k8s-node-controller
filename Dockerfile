@@ -15,7 +15,7 @@ COPY README.md /opt/k8s_node_operator
 COPY src/k8s_node_operator /opt/k8s_node_operator/src/k8s_node_operator
 
 WORKDIR /opt/k8s_node_operator
-RUN python3 -m pip install -e .
+RUN python3 -m pip install .
 
 ENTRYPOINT ["/usr/bin/tini", "--"]
-CMD ["python3", "src/k8s_node_operator/app.py"]
+CMD ["kopf", "run", "src/k8s_node_operator/operator.py", "--verbose"]
