@@ -17,7 +17,7 @@ on:
     - '**'
 
 jobs:
-  # Packages the Helm chart, and pushes it to 2i2c-org/k8s-node-controller@gh-pages.
+  # Packages the Helm chart, and pushes it to 2i2c-org/k8s-node-operator@gh-pages.
   #
   publish:
     runs-on: ubuntu-24.04

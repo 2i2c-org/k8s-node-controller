@@ -10,18 +10,18 @@
 #
 
 charts:
-  - name: k8s-node-controller
+  - name: k8s-node-operator
     chartPath: helm
     imagePrefix: quay.io/2i2c/
     # Set dev version by taking latest tag and incrementing patch
     baseVersion: patch
 
     repo:
-      git: 2i2c-org/k8s-node-controller
-      published: https://2i2c.org/k8s-node-controller/
+      git: 2i2c-org/k8s-node-operator
+      published: https://2i2c.org/k8s-node-operator/
 
     images:
-      k8s-node-controller:
+      k8s-node-operator:
         dockerfilePath: Dockerfile
         contextPath: .
         valuesPath: image
