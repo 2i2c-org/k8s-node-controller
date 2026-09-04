@@ -4,7 +4,7 @@ import yaml
 from google.cloud import container_v1
 from google.oauth2 import service_account
 from typing import Any
-from dotenv import load_dotenv
+from dotenv import load_dotenv # type: ignore
 
 load_dotenv()
 
