@@ -19,6 +19,7 @@ required:
 - global
 - extraEnv
 - image
+- rbac
 - service
 - serviceAccount
 properties:
@@ -105,6 +106,20 @@ properties:
   # ---------------------------------------------------------------------------
   #
   serviceAccount:
+    type: object
+    additionalProperties: false
+    required: [create, name]
+    properties:
+      create:
+        type: boolean
+      name:
+        type: string
+      annotations: *labels-and-annotations
+
+  # RBAC resource
+  # ---------------------------------------------------------------------------
+  #
+  rbac:
     type: object
     additionalProperties: false
     required: [create, name]
