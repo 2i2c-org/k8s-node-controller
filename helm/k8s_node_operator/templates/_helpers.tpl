@@ -53,3 +53,12 @@ Selector labels
 app.kubernetes.io/name: {{ include "k8s-node-operator.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
+
+{{- /* ServiceAccount name */}}
+{{- define "k8s-node-operator.serviceaccount.fullname" -}}
+    {{- if .Values.serviceAccount.create }}
+        {{- .Values.serviceAccount.name | default (include "k8s-node-operator.fullname" .) }}
+    {{- else }}
+        {{- .Values.serviceAccount.name }}
+    {{- end }}
+{{- end }}
