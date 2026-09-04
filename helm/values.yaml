@@ -11,7 +11,7 @@ global: {}
 replicas: 1
 extraEnv: []
 image:
-  repository: quay.io/2i2c/k8s-node-controller
+  repository: quay.io/2i2c/k8s-node-operator
   tag: 0.0.1-0.dev.git.13.hdd314ba
 resources: {}
 securityContext:

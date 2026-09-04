@@ -1,14 +1,16 @@
-{{- /* Generated with https://patorjk.com/software/taag/#p=display&f=Soft&t=k8s+node%0Acontroller&x=none&v=4&h=4&w=70&we=true */}}                                           
-,--.    ,---.                              ,--.                   
-|  |,-.|  o  | ,---.     ,--,--,  ,---.  ,-|  | ,---.             
-|     /.'   '.(  .-'     |      \| .-. |' .-. || .-. :            
-|  \  \|  o  |.-'  `)    |  ||  |' '-' '\ `-' |\   --.            
-`--'`--'`---' `----'     `--''--' `---'  `---'  `----'            
-                       ,--.                ,--.,--.               
- ,---. ,---. ,--,--, ,-'  '-.,--.--. ,---. |  ||  | ,---. ,--.--. 
-| .--'| .-. ||      \'-.  .-'|  .--'| .-. ||  ||  || .-. :|  .--' 
-\ `--.' '-' '|  ||  |  |  |  |  |   ' '-' '|  ||  |\   --.|  |    
- `---' `---' `--''--'  `--'  `--'    `---' `--'`--' `----'`--'  
+{{- /* Generated with https://patorjk.com/software/taag/#p=display&f=Soft&t=k8s+node%0Aoperator&x=none&v=4&h=4&w=70&we=true */}}                                           
+                                                           
+,--.    ,---.                              ,--.            
+|  |,-.|  o  | ,---.     ,--,--,  ,---.  ,-|  | ,---.      
+|     /.'   '.(  .-'     |      \| .-. |' .-. || .-. :     
+|  \  \|  o  |.-'  `)    |  ||  |' '-' '\ `-' |\   --.     
+`--'`--'`---' `----'     `--''--' `---'  `---'  `----'     
+                                      ,--.                 
+ ,---.  ,---.  ,---. ,--.--. ,--,--.,-'  '-. ,---. ,--.--. 
+| .-. || .-. || .-. :|  .--'' ,-.  |'-.  .-'| .-. ||  .--' 
+' '-' '| '-' '\   --.|  |   \ '-'  |  |  |  ' '-' '|  |    
+ `---' |  |-'  `----'`--'    `--`--'  `--'   `---' `--'    
+       `--'                                                
 
 Thank you for installing {{ .Chart.Name }}!
 
@@ -17,7 +19,7 @@ Thank you for installing {{ .Chart.Name }}!
   - Kubernetes namespace: {{ .Release.Namespace }}
   - Helm release name:    {{ .Release.Name }}
   - Helm chart version:   {{ .Chart.Version }}
-  - GitHub repo:          https://github.com/2i2c-org/k8s-node-controller
+  - GitHub repo:          https://github.com/2i2c-org/k8s-node-operator
 
 ### Post-installation checklist
 

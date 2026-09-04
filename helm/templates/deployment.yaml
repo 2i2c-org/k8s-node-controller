@@ -1,14 +1,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "k8s-node-controller.fullname" . }}
+  name: {{ include "k8s-node-operator.fullname" . }}
   labels:
-    {{- include "k8s-node-controller.labels" . | nindent 4 }}
+    {{- include "k8s-node-operator.labels" . | nindent 4 }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      {{- include "k8s-node-controller.selectorLabels" . | nindent 6 }}
+      {{- include "k8s-node-operator.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       annotations:
@@ -16,10 +16,10 @@ spec:
         {{- . | toYaml | nindent 8 }}
         {{- end }}
       labels:
-        {{- include "k8s-node-controller.labels" . | nindent 8 }}
+        {{- include "k8s-node-operator.labels" . | nindent 8 }}
     spec:
       containers:
-        - name: controller
+        - name: operator
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           {{- with .Values.image.pullPolicy }}
           imagePullPolicy: {{ . }}

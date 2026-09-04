@@ -27,7 +27,7 @@ properties:
   enabled:
     type: boolean
     description: |
-      Configuration flag for charts depending on k8s-node-controller to toggle installing it.
+      Configuration flag for charts depending on k8s-node-operator to toggle installing it.
 
   # General configuration
   # ---------------------------------------------------------------------------
