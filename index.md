@@ -1,6 +1,6 @@
-# Helm chart repository for k8s-node-controller
+# Helm chart repository for k8s-node-operator
 
-This is a bare Helm chart repository specifically for the [k8s-node-controller](https://github.com/2i2c-org/k8s-node-controller) chart.
+This is a bare Helm chart repository specifically for the [k8s-node-operator](https://github.com/2i2c-org/k8s-node-operator) chart.
 
 {% for chartmap in site.data.index.entries %}
 ## Releases: {{ chartmap[0] }}
